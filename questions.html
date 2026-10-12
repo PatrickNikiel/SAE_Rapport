@@ -3,8 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>KDou Questions</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <header>
+        <nav>
+            <a href="index.html">Acceuil</a>
+            <a href="questions.html">Questions</a>
+            <a href="requetes.html">Requêtes</a>
+        </nav>
+    </header>
+    <h1>KDou</h1>
+    <section>
+        <h2>Question a</h2>
+        <code>
+            SELECT * FROM Clientele WHERE Ville = "Paris" ORDER BY Societe;
+        </code>
+        <h3>Contexte :</h3>
+        <p>L’entreprise peut se demander si elle doit créer un nouveau hangar à Paris, pour ce faire, elle va vérifier le nombre de clients et quels clients sont à Paris.</p>
+    </section>
+    <section>
+        <h2>Question b</h2>
+        <code>
+            SELECT NomProd, CoutAchat, Societe, Ville FROM Produit
+            INNER JOIN (Fournisseur INNER JOIN Pays ON Fournisseur.NoPays = Pays.NoPays)
+            ON Produit.NoFour = Fournisseur.NoFour
+            WHERE Pays.PaysFR = "Etats-Unis" AND CoutAchat < 25;
+        </code>
+        <h3>Contexte :</h3>
+        <p>L’entreprise souhaiterait connaître des produits américains que l’on pourrait regrouper pour faire des « box » pour les fans de la culture américaine.</p>
+    </section>
+    <section>
+        <h2>Question c</h2>
+        <code>
+            SELECT * FROM Produit
+            INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
+            WHERE (NomCateg = "Poissons et fruits de mer" OR NomCateg = "Viandes") AND CoutAchat > 50;
+        </code>
+        <h3>Contexte :</h3>
+        <p>L’entreprise souhaiterait connaitre les viandes et poissons de luxe pour fournir un restaurant étoilé</p>
+    </section>
+
 </body>
 </html>
