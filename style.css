@@ -19,6 +19,7 @@ body {
 a {
     color: var(--text);
     text-decoration: none;
+    margin: 20px;
 }
 
 header {
@@ -29,4 +30,42 @@ header {
 
 section {
     padding: 1em;
+}
+
+pre {
+    font-size: 1.3em;
+    max-width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+.menu {
+    text-align: center;
+}
+
+section > h2 {
+    scroll-margin-top: 30vh;
+    color: cadetblue;
+}
+
+main {
+    margin: 20px;
+}
+
+.ligne-questions {
+    margin-left: 20px;
+}
+
+.menu-questions a:hover {
+    color: plum;
+}
+
+.menu a:hover {
+    color: seagreen;
+}
+
+.ligne-requete {
+    scroll-margin-top: 30vh;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
