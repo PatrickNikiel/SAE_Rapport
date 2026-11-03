@@ -7,108 +7,193 @@
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="menu">
             <a href="index.html">Acceuil</a>
             <a href="questions.html">Questions</a>
             <a href="requetes.html">Requêtes</a>
         </nav>
     </header>
+    <main>
     <h1>KDou</h1>
+    <nav class="menu-questions">
+        <div class="ligne-questions">
+        <p>Requête 1 :</p>
+        <a href="#a">a)</a>
+        <a href="#b">b)</a>
+        <a href="#c">c)</a>
+        <a href="#d">d)</a>
+        <a href="#d">e)</a>
+        <a href="#f">f)</a>
+        <a href="#g">g)</a>
+        <a href="#h">h)</a>
+        <a href="#i">i)</a>
+        <a href="#j">j)</a>
+        </div>
+        <div class="ligne-requete"><a href="#2">Requête 2</a></div>
+        <div class="ligne-requete"><a href="#3">Requête 3</a></div>
+        <div class="ligne-requete"><a href="#4">Requête 4</a></div>
+        <div class="ligne-requete"><a href="#5">Requête 5</a></div>
+    </nav>
     <section>
-        <h2>Question a)</h2>
-        <code>
-            SELECT * FROM Clientele WHERE Ville = "Paris" ORDER BY Societe;
-        </code>
+        <h2 id="a">Question a)</h2>
+            <pre>
+                <code>
+SELECT *
+FROM Clientele WHERE Ville = "Paris"
+ORDER BY Societe;
+                </code>
+            </pre>
         <h3>Contexte :</h3>
         <p>L’entreprise peut se demander si elle doit créer un nouveau hangar à Paris, pour ce faire, elle va vérifier le nombre de clients et quels clients sont à Paris.</p>
     </section>
     <section>
-        <h2>Question b)</h2>
-        <code>
-            SELECT NomProd, CoutAchat, Societe, Ville FROM Produit
-            INNER JOIN (Fournisseur INNER JOIN Pays ON Fournisseur.NoPays = Pays.NoPays)
-            ON Produit.NoFour = Fournisseur.NoFour
-            WHERE Pays.PaysFR = "Etats-Unis" AND CoutAchat < 25;
-        </code>
+        <h2 id="b">Question b)</h2>
+            <pre>
+                <code>
+SELECT NomProd, CoutAchat, Societe, Ville
+FROM Produit
+INNER JOIN (Fournisseur
+INNER JOIN Pays ON Fournisseur.NoPays = Pays.NoPays)
+ON Produit.NoFour = Fournisseur.NoFour
+WHERE Pays.PaysFR = "Etats-Unis" AND CoutAchat < 25;
+                </code>
+            </pre>
         <h3>Contexte :</h3>
         <p>L’entreprise souhaiterait connaître des produits américains que l’on pourrait regrouper pour faire des « box » pour les fans de la culture américaine.</p>
     </section>
     <section>
-        <h2>Question c)</h2>
-        <code>
-            SELECT * FROM Produit
-            INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
-            WHERE (NomCateg = "Poissons et fruits de mer" OR NomCateg = "Viandes") AND CoutAchat > 50;
-        </code>
+        <h2 id="c">Question c)</h2>
+            <pre>
+                <code>
+SELECT * FROM Produit
+INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
+WHERE (NomCateg = "Poissons et fruits de mer" OR NomCateg = "Viandes") AND CoutAchat > 50;
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p>L’entreprise souhaiterait connaitre les viandes et poissons de luxe pour fournir un restaurant étoilé</p>
+        <p>L’entreprise souhaiterait connaitre les viandes et poissons de luxe pour fournir un restaurant étoilé.</p>
     </section>
     <section>
-        <h2>Question d) et e)</h2>
-        <code>
-            SELECT DISTINCT Fournisseur.Societe
-            FROM Fournisseur
-            INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
-            WHERE (((Produit.CodeCateg) = 6)) OR (((Produit.CodeCateg) = 8));
-        </code>
+        <span id="e"></span>
+        <h2 id="d">Question d) et e)</h2>
+            <pre>
+                <code>
+SELECT DISTINCT Fournisseur.Societe
+FROM Fournisseur INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
+WHERE (((Produit.CodeCateg) = 6)) OR (((Produit.CodeCateg) = 8));
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p></p>
+        <p>L'entreprise souhaiterait connaitre quels fournisseurs proposent de la viande et du poisson.</p>
     </section>
     <section>
-        <h2>Question f)</h2>
-        <code>
-            SELECT DISTINCT Produit.NomProd
-            FROM Produit
-            WHERE (((Produit.QteParUnit) LIKE "*carton*")) OR (((Produit.QteParUnit) LIKE "*verre*"));
-        </code>
+        <h2 id="f">Question f)</h2>
+            <pre>
+                <code>
+SELECT DISTINCT Produit.NomProd
+FROM Produit
+WHERE (((Produit.QteParUnit) LIKE "*carton*")) OR (((Produit.QteParUnit) LIKE "*verre*"));
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p></p>
+        <p>L'entreprise souhaiterait connaitre les produits conditionnés dans du carton ou dans du verre.</p>
     </section>
     <section>
-        <h2>Question g)</h2>
-        <code>
-            SELECT TOP 25 PERCENT Commande.[N° commande]
-            FROM Clientele
-            INNER JOIN Commande ON Clientele.CodeCli = Commande.CodeCli
-            WHERE (((Clientele.Contact) = "Max Deschamps"))
-            ORDER BY Commande.[N° commande] DESC;
-        </code>
+        <h2 id="g">Question g)</h2>
+            <pre>
+                <code>
+SELECT TOP 25 PERCENT Commande.[N° commande]
+FROM Clientele INNER JOIN Commande ON Clientele.CodeCli = Commande.CodeCli
+WHERE (((Clientele.Contact) = "Max Deschamps"))
+ORDER BY Commande.[N° commande] DESC;
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p></p>
+        <p>L'entreprise souhaiterait connaitre les 3 dernières commandes du client Max Deschamps.</p>
     </section>
     <section>
-        <h2>Question h)</h2>
-        <code>
-            SELECT DISTINCT Fournisseur.Societe
-            FROM Fournisseur
-            INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
-            WHERE (((Produit.CodeCateg) = 3));
-        </code>
+        <h2 id="h">Question h)</h2>
+            <pre>
+                <code>
+SELECT DISTINCT Fournisseur.Societe
+FROM Fournisseur INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
+WHERE (((Produit.CodeCateg) = 3));
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p></p>
+        <p>L'entreprise souhaiterait connaitre les fournisseurs ne proposent que des desserts.</p>
     </section>
     <section>
-        <h2>Question i)</h2>
-        <code>
-            SELECT Fournisseur.Societe, Pays.PaysFR, Pays.PaysEN
-            FROM Pays
-            INNER JOIN (Fournisseur LEFT JOIN Produit ON Fournisseur.NoFour = Produit.NoFour) ON Pays.NoPays = Fournisseur.NoPays
-            WHERE (((Produit.NoFour) IS NULL) AND (NOT (Pays.PaysFR) = "France") AND (NOT (Pays.PaysEN) = "France"));
-        </code>
+        <h2 id="i">Question i)</h2>
+            <pre>
+                <code>
+SELECT Fournisseur.Societe, Pays.PaysFR, Pays.PaysEN
+FROM Pays INNER JOIN (Fournisseur LEFT JOIN Produit ON Fournisseur.NoFour = Produit.NoFour) ON Pays.NoPays = Fournisseur.NoPays
+WHERE (((Produit.NoFour) IS NULL) AND (NOT (Pays.PaysFR) = "France") AND (NOT (Pays.PaysEN) = "France"));
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p></p>
+        <p>L'entreprise souhaiterait connaitre quels fournisseurs hors France n’ont pas encore de produits au catalogue de Kdou.</p>
     </section>
     <section>
-        <h2>Question j)</h2>
-        <code>
-            SELECT Clientele.Societe, Clientele_1.Societe, Clientele.Ville, Clientele_1.Ville
-            FROM Clientele
-            INNER JOIN Clientele AS Clientele_1 ON Clientele.CodeCliPart = Clientele_1.CodeCli
-            WHERE (((Clientele.Ville) = "Paris") AND ((Clientele_1.Ville) = "Paris"));
-        </code>
+        <h2 id="j">Question j)</h2>
+            <pre>
+                <code>
+SELECT Clientele.Societe, Clientele_1.Societe, Clientele.Ville, Clientele_1.Ville
+FROM Clientele INNER JOIN Clientele AS Clientele_1 ON Clientele.CodeCliPart = Clientele_1.CodeCli
+WHERE (((Clientele.Ville) = "Paris") AND ((Clientele_1.Ville) = "Paris"));
+                </code>
+            </pre>
         <h3>Contexte :</h3>
-        <p></p>
+        <p>L'entreprise souhaiterait connaitre quels sont les couples de clients qui sont situés à Paris pour des raisons d'optimisation des livraisons.</p>
     </section>
+    <section>
+        <h2 id="2">Requête 2</h2>
+            <pre>
+                <code>
+SELECT Sum([DetailCommande]![Quantité]*[Produit]![CoutAchat]*(1+[Categorie]![CoefMarge])*(1-[DetailCommande]![Remise (%)])) AS [CA Total UE]
+FROM Pays INNER JOIN (Fournisseur INNER JOIN (Categorie INNER JOIN (Produit INNER JOIN DetailCommande ON Produit.RefProd = DetailCommande.[Réf produit]) ON Categorie.CodeCateg = Produit.CodeCateg) ON Fournisseur.NoFour = Produit.NoFour) ON Pays.NoPays = Fournisseur.NoPays
+WHERE (((Pays.UE) Is Not Null));
+                </code>
+            </pre>
+        <h3>Contexte :</h3>
+        <p>En liens avec l'origine des produits, l'entreprise souhaiterait connaitre le chiffre d'affaire total généré à ce jour avec les fournisseurs de l'UE.</p>
+    </section>
+    <section>
+        <h2 id="3">Requête 3</h2>
+            <pre>
+                <code>
+SELECT Year(Commande.DateCde) AS Annee, Sum([DetailCommande]![Quantité]*[Produit]![CoutAchat]*(1+[Categorie]![CoefMarge])*(1-[DetailCommande]![Remise (%)])) AS [CA désert/boisson]
+FROM Commande INNER JOIN ((Categorie INNER JOIN Produit ON Categorie.CodeCateg = Produit.CodeCateg) INNER JOIN DetailCommande ON Produit.RefProd = DetailCommande.[Réf produit]) ON Commande.[N° commande] = DetailCommande.[N° commande]
+WHERE (((Produit.CodeCateg)=1 OR (Produit.CodeCateg)=3))
+GROUP BY Year(Commande.DateCde);
+                </code>
+            </pre>
+        <h3>Contexte :</h3>
+        <p>En liens avec la santé, l'entreprise souhaiterait connaitre le chiffre d'affaire annuel généré par le total des ventes pour les catégories desserts ou boissons.</p>
+    </section>
+    <section>
+        <h2 id="4">Requête 4</h2>
+            <pre>
+                <code>
+SELECT COUNT(Produit.RefProd) AS Nb_Produits_Carnes_Non_Commandes
+FROM (Produit INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg) LEFT JOIN DetailCommande ON Produit.RefProd = DetailCommande.[Réf produit]
+WHERE Categorie.NomCateg LIKE "*Viande*" AND DetailCommande.[Réf produit] IS NULL;
+                </code>
+            </pre>
+        <h3>Contexte :</h3>
+        <p>En liens avec l'offre commerciale, l'entreprise souhaiterait connaitre le nombre de produits carnés non commandés actuellement.</p>
+    </section>
+    <section>
+        <h2 id="5">Requête 5</h2>
+            <pre>
+                <code>
 
+                </code>
+            </pre>
+        <h3>Contexte :</h3>
+        <p>En liens avec le partenariat client, l'entreprise souhaiterait connaitre s'il y a des clients pilotes d'un réseau partenaire ayant autant de commandes ques les clients partenaires.</p>
+    </section>
+    </main>
 </body>
 </html>
