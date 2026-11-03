@@ -15,7 +15,7 @@
     </header>
     <h1>KDou</h1>
     <section>
-        <h2>Question a</h2>
+        <h2>Question a)</h2>
         <code>
             SELECT * FROM Clientele WHERE Ville = "Paris" ORDER BY Societe;
         </code>
@@ -23,7 +23,7 @@
         <p>L’entreprise peut se demander si elle doit créer un nouveau hangar à Paris, pour ce faire, elle va vérifier le nombre de clients et quels clients sont à Paris.</p>
     </section>
     <section>
-        <h2>Question b</h2>
+        <h2>Question b)</h2>
         <code>
             SELECT NomProd, CoutAchat, Societe, Ville FROM Produit
             INNER JOIN (Fournisseur INNER JOIN Pays ON Fournisseur.NoPays = Pays.NoPays)
@@ -34,7 +34,7 @@
         <p>L’entreprise souhaiterait connaître des produits américains que l’on pourrait regrouper pour faire des « box » pour les fans de la culture américaine.</p>
     </section>
     <section>
-        <h2>Question c</h2>
+        <h2>Question c)</h2>
         <code>
             SELECT * FROM Produit
             INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
@@ -42,6 +42,72 @@
         </code>
         <h3>Contexte :</h3>
         <p>L’entreprise souhaiterait connaitre les viandes et poissons de luxe pour fournir un restaurant étoilé</p>
+    </section>
+    <section>
+        <h2>Question d) et e)</h2>
+        <code>
+            SELECT DISTINCT Fournisseur.Societe
+            FROM Fournisseur
+            INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
+            WHERE (((Produit.CodeCateg) = 6)) OR (((Produit.CodeCateg) = 8));
+        </code>
+        <h3>Contexte :</h3>
+        <p></p>
+    </section>
+    <section>
+        <h2>Question f)</h2>
+        <code>
+            SELECT DISTINCT Produit.NomProd
+            FROM Produit
+            WHERE (((Produit.QteParUnit) LIKE "*carton*")) OR (((Produit.QteParUnit) LIKE "*verre*"));
+        </code>
+        <h3>Contexte :</h3>
+        <p></p>
+    </section>
+    <section>
+        <h2>Question g)</h2>
+        <code>
+            SELECT TOP 25 PERCENT Commande.[N° commande]
+            FROM Clientele
+            INNER JOIN Commande ON Clientele.CodeCli = Commande.CodeCli
+            WHERE (((Clientele.Contact) = "Max Deschamps"))
+            ORDER BY Commande.[N° commande] DESC;
+        </code>
+        <h3>Contexte :</h3>
+        <p></p>
+    </section>
+    <section>
+        <h2>Question h)</h2>
+        <code>
+            SELECT DISTINCT Fournisseur.Societe
+            FROM Fournisseur
+            INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
+            WHERE (((Produit.CodeCateg) = 3));
+        </code>
+        <h3>Contexte :</h3>
+        <p></p>
+    </section>
+    <section>
+        <h2>Question i)</h2>
+        <code>
+            SELECT Fournisseur.Societe, Pays.PaysFR, Pays.PaysEN
+            FROM Pays
+            INNER JOIN (Fournisseur LEFT JOIN Produit ON Fournisseur.NoFour = Produit.NoFour) ON Pays.NoPays = Fournisseur.NoPays
+            WHERE (((Produit.NoFour) IS NULL) AND (NOT (Pays.PaysFR) = "France") AND (NOT (Pays.PaysEN) = "France"));
+        </code>
+        <h3>Contexte :</h3>
+        <p></p>
+    </section>
+    <section>
+        <h2>Question j)</h2>
+        <code>
+            SELECT Clientele.Societe, Clientele_1.Societe, Clientele.Ville, Clientele_1.Ville
+            FROM Clientele
+            INNER JOIN Clientele AS Clientele_1 ON Clientele.CodeCliPart = Clientele_1.CodeCli
+            WHERE (((Clientele.Ville) = "Paris") AND ((Clientele_1.Ville) = "Paris"));
+        </code>
+        <h3>Contexte :</h3>
+        <p></p>
     </section>
 
 </body>
