@@ -36,6 +36,8 @@
     </nav>
     <section>
         <h2 id="a">Question a)</h2>
+        <h3>Contexte :</h3>
+        <p>L’entreprise peut se demander si elle doit créer un nouveau hangar à Paris, pour ce faire, elle va vérifier le nombre de clients et quels clients sont à Paris.</p>
             <pre>
                 <code>
 SELECT *
@@ -43,11 +45,17 @@ FROM Clientele WHERE Ville = "Paris"
 ORDER BY Societe;
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L’entreprise peut se demander si elle doit créer un nouveau hangar à Paris, pour ce faire, elle va vérifier le nombre de clients et quels clients sont à Paris.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1a.png"
+alt="
+Les deux fournisseurs situés à Paris sont la société EthnicFood France (contact : Bob Rego, situé au 5 saint de pierre, 75002) et la société Moines de Paris (contact : Marie Nodier, située au 203, rue des Francs-Bourgeois, 75004).">
+        </pre>
     </section>
     <section>
         <h2 id="b">Question b)</h2>
+        <h3>Contexte :</h3>
+        <p>L’entreprise souhaiterait connaître des produits américains que l’on pourrait regrouper pour faire des « box » pour les fans de la culture américaine.</p>
             <pre>
                 <code>
 SELECT NomProd, CoutAchat, Societe, Ville
@@ -58,11 +66,21 @@ ON Produit.NoFour = Fournisseur.NoFour
 WHERE Pays.PaysFR = "Etats-Unis" AND CoutAchat < 25;
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L’entreprise souhaiterait connaître des produits américains que l’on pourrait regrouper pour faire des « box » pour les fans de la culture américaine.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1b.png"
+alt="
+La requête renvoie la liste des 8 produits suivants avec leur coût d'achat, leur fournisseur et la ville associée :
+    Grandma's Boysenberry Spread (20,83 €) fourni par Miss Ruby's Kitchen à Ann Arbor
+    Sasquatch Ale (11,67 €), Steeleye Stout (15,00 €) et Laughing Lumberjack Lager (11,67 €) fournis par Grizzly Hopworks Co. à Bend
+    Boston Crab Meat (15,33 €) et Jack's New England Clam Chowd (8,04 €) fournis par Atlantic Bay Fish Co. à Boston
+    Louisiana Fiery Hot Pepper Sauc (17,54 €) et Louisiana Hot Spiced Okra (14,17 €) fournis par Bayou pice Traders à New Orleans">
+        </pre>
     </section>
     <section>
         <h2 id="c">Question c)</h2>
+        <h3>Contexte :</h3>
+        <p>L’entreprise souhaiterait connaitre les viandes et poissons de luxe pour fournir un restaurant étoilé.</p>
             <pre>
                 <code>
 SELECT * FROM Produit
@@ -70,12 +88,24 @@ INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
 WHERE (NomCateg = "Poissons et fruits de mer" OR NomCateg = "Viandes") AND CoutAchat > 50;
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L’entreprise souhaiterait connaitre les viandes et poissons de luxe pour fournir un restaurant étoilé.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1c.png"
+alt="
+La requête renvoie les 7 produits suivants appartenant aux catégories « Viandes » ou « Poissons et fruits de mer » :
+    Mishi Kobe Niku (80,83 €) fourni par Sakura Imports en Japon (Viandes)
+    Thüringer Rostbratwurst (103,16 €) fourni par TanteGreta Handelsgruppe en Allemagne (Viandes)
+    Perth Pasties (97,33 €) fourni par Boomerang Goods Pty Ltd. en Australie (Viandes)
+    Tourtière (56,21 €) et Pâté chinois (68,00 €) fournis par Le Panier du Coin au Canada (Viandes)
+    Carnarvon Tigers (52,08 €) fourni par Coral Bay Delights Ltd. en Australie (Poissons et fruits de mer)
+    Dea Surströmming (120,00 €) fourni par SkandiDelikat AB en Suède (Poissons et fruits de mer)">
+        </pre>
     </section>
     <section>
         <span id="e"></span>
         <h2 id="d">Question d) et e)</h2>
+        <h3>Contexte :</h3>
+        <p>L'entreprise souhaiterait connaitre quels fournisseurs proposent de la viande et du poisson.</p>
             <pre>
                 <code>
 SELECT DISTINCT Fournisseur.Societe
@@ -83,11 +113,17 @@ FROM Fournisseur INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
 WHERE (((Produit.CodeCateg) = 6)) OR (((Produit.CodeCateg) = 8));
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre quels fournisseurs proposent de la viande et du poisson.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1de.png"
+alt="
+Les fournisseurs proposant des produits des catégories 6 ou 8 sont : Atlantic Bay Fish Co., BaltikFisch GmbH, Boomerang Goods Pty Ltd., Coral Bay Delights Ltd., EthnicFood France, FjordSild AS, Havsmat Sverige AB, Le Panier du Coin, L'escargotière, Mayako Foods, Moines de Paris, Rontab, Sakura Imports, SkandiDelikat AB et TanteGreta Handelsgruppe.">
+        </pre>
     </section>
     <section>
         <h2 id="f">Question f)</h2>
+        <h3>Contexte :</h3>
+        <p>L'entreprise souhaiterait connaitre les produits conditionnés dans du carton ou dans du verre.</p>
             <pre>
                 <code>
 SELECT DISTINCT Produit.NomProd
@@ -95,11 +131,17 @@ FROM Produit
 WHERE (((Produit.QteParUnit) LIKE "*carton*")) OR (((Produit.QteParUnit) LIKE "*verre*"));
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre les produits conditionnés dans du carton ou dans du verre.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1f.png"
+alt="
+Les produits conditionnés en carton ou en verre sont : Carnarvon Tigers, Chocolade, Fløtemysost, Gnocchi di nonna Alice, Gorgonzola Telino, Gravad lax, Gudbrandsdalsost, Gustaf's Knäckebröd, knäckebröd Kala, Longlife Tofu, Mascarpone Fabioli, Maxilaku, Mishi Kobe Niku, Mozzarella di Giovanni, Nord-Ost Matjeshering, NuNuCa Nuß-Nougat-Creme, Queso Cabrales, Queso Manchego La Pastora, Raclette Courdavault, Ravioli Angelo, Røgede sild, Singaporean Hokkien Fried Mee, Spegesild, Tofu, Tunnbröd et Uncle Bob's Organic Dried Pears.">
+        </pre>
     </section>
     <section>
         <h2 id="g">Question g)</h2>
+        <h3>Contexte :</h3>
+        <p>L'entreprise souhaiterait connaitre les 3 dernières commandes du client Max Deschamps.</p>
             <pre>
                 <code>
 SELECT TOP 25 PERCENT Commande.[N° commande]
@@ -108,11 +150,17 @@ WHERE (((Clientele.Contact) = "Max Deschamps"))
 ORDER BY Commande.[N° commande] DESC;
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre les 3 dernières commandes du client Max Deschamps.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1g.png"
+alt="
+Les numéros de commande associés au contact Max Deschamps sont, par ordre décroissant : 11047, 10855 et 10717.">
+        </pre>
     </section>
     <section>
         <h2 id="h">Question h)</h2>
+        <h3>Contexte :</h3>
+        <p>L'entreprise souhaiterait connaitre les fournisseurs ne proposent que des desserts.</p>
             <pre>
                 <code>
 SELECT DISTINCT Fournisseur.Societe
@@ -120,11 +168,17 @@ FROM Fournisseur INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
 WHERE (((Produit.CodeCateg) = 3));
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre les fournisseurs ne proposent que des desserts.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1h.png"
+alt="
+La liste comprend les neuf sociétés suivantes : Baker’s Treats, Ltd., Coral Bay Delights Ltd., Délices de l'Érable, Holland Zoetgoed BV, MakeaHerkkku Oy, Nordlicht Feinkost GmbH, Sabores del Sol, SkandiDelikat AB et Tulip & Co. Delicacies.">
+        </pre>
     </section>
     <section>
         <h2 id="i">Question i)</h2>
+        <h3>Contexte :</h3>
+        <p>L'entreprise souhaiterait connaitre quels fournisseurs hors France n’ont pas encore de produits au catalogue de Kdou.</p>
             <pre>
                 <code>
 SELECT Fournisseur.Societe, Pays.PaysFR, Pays.PaysEN
@@ -132,11 +186,17 @@ FROM Pays INNER JOIN (Fournisseur LEFT JOIN Produit ON Fournisseur.NoFour = Prod
 WHERE (((Produit.NoFour) IS NULL) AND (NOT (Pays.PaysFR) = "France") AND (NOT (Pays.PaysEN) = "France"));
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre quels fournisseurs hors France n’ont pas encore de produits au catalogue de Kdou.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1i.png"
+alt="
+La société Pacific United Traders Ltd. est située en Australie (Australia en anglais), tandis que la société Sabor do Sul Ltda. se trouve au Brésil (Brazil en anglais).">
+        </pre>
     </section>
     <section>
         <h2 id="j">Question j)</h2>
+        <h3>Contexte :</h3>
+        <p>L'entreprise souhaiterait connaitre quels sont les couples de clients qui sont situés à Paris pour des raisons d'optimisation des livraisons.</p>
             <pre>
                 <code>
 SELECT Clientele.Societe, Clientele_1.Societe, Clientele.Ville, Clientele_1.Ville
@@ -144,11 +204,17 @@ FROM Clientele INNER JOIN Clientele AS Clientele_1 ON Clientele.CodeCliPart = Cl
 WHERE (((Clientele.Ville) = "Paris") AND ((Clientele_1.Ville) = "Paris"));
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre quels sont les couples de clients qui sont situés à Paris pour des raisons d'optimisation des livraisons.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE1j.png"
+alt="
+La comparaison montre que ChefFamilla et La Parisienne partagent la même ville d'implantation (Paris) avec l'établissement Chez Bouxou.">
+        </pre>
     </section>
     <section>
         <h2 id="2">Requête 2</h2>
+        <h3>Contexte :</h3>
+        <p>En liens avec l'origine des produits, KDou souhaiterait connaitre le chiffre d'affaire total généré à ce jour avec les fournisseurs de l'UE.</p>
             <pre>
                 <code>
 SELECT Sum([DetailCommande]![Quantité]*[Produit]![CoutAchat]*(1+[Categorie]![CoefMarge])*(1-[DetailCommande]![Remise (%)])) AS [CA Total UE]
@@ -156,11 +222,17 @@ FROM Pays INNER JOIN (Fournisseur INNER JOIN (Categorie INNER JOIN (Produit INNE
 WHERE (((Pays.UE) Is Not Null));
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>En liens avec l'origine des produits, l'entreprise souhaiterait connaitre le chiffre d'affaire total généré à ce jour avec les fournisseurs de l'UE.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE2.png"
+alt="
+Le CA Total UE s'établit à 7 413 501,21 €.">
+        </pre>
     </section>
     <section>
         <h2 id="3">Requête 3</h2>
+        <h3>Contexte :</h3>
+        <p>En liens avec la santé, KDou souhaiterait connaitre le chiffre d'affaire annuel généré par le total des ventes pour les catégories desserts ou boissons.</p>
             <pre>
                 <code>
 SELECT Year(Commande.DateCde) AS Annee, Sum([DetailCommande]![Quantité]*[Produit]![CoutAchat]*(1+[Categorie]![CoefMarge])*(1-[DetailCommande]![Remise (%)])) AS [CA désert/boisson]
@@ -169,11 +241,19 @@ WHERE (((Produit.CodeCateg)=1 OR (Produit.CodeCateg)=3))
 GROUP BY Year(Commande.DateCde);
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>En liens avec la santé, l'entreprise souhaiterait connaitre le chiffre d'affaire annuel généré par le total des ventes pour les catégories desserts ou boissons.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE3.png"
+alt="
+2020 : Le chiffre d'affaires des desserts/boissons est de 249 060,022415539 €.
+2021 : Le chiffre d'affaires des desserts/boissons est de 2 078 117,93250675 €.
+2022 : Le chiffre d'affaires des desserts/boissons est de 2 159,50442333787 €.">
+        </pre>
     </section>
     <section>
         <h2 id="4">Requête 4</h2>
+        <h3>Contexte :</h3>
+        <p>En liens avec l'offre commerciale, KDou souhaiterait connaitre le nombre de produits carnés non commandés actuellement.</p>
             <pre>
                 <code>
 SELECT COUNT(Produit.RefProd) AS Nb_Produits_Carnes_Non_Commandes
@@ -181,18 +261,30 @@ FROM (Produit INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg) L
 WHERE Categorie.NomCateg LIKE "*Viande*" AND DetailCommande.[Réf produit] IS NULL;
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>En liens avec l'offre commerciale, l'entreprise souhaiterait connaitre le nombre de produits carnés non commandés actuellement.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE4.png"
+alt="
+Il y a 2 produits de la catégorie « Viande » qui n'ont jamais été commandés.">
+        </pre>
     </section>
     <section>
         <h2 id="5">Requête 5</h2>
+        <h3>Contexte :</h3>
+        <p>En liens avec le partenariat client, KDou souhaiterait connaitre s'il y a des clients pilotes d'un réseau partenaire ayant autant de commandes ques les clients partenaires.</p>
             <pre>
                 <code>
-
+SELECT * FROM Clientele A
+INNER JOIN Clientele B ON B.CodeCliPart = A.CodeCli
+WHERE (SELECT COUNT(*) FROM Commande WHERE A.CodeCli = Commande.CodeCli) = (SELECT COUNT(*) FROM Commande WHERE B.CodeCli = Commande.CodeCli)
                 </code>
             </pre>
-        <h3>Contexte :</h3>
-        <p>En liens avec le partenariat client, l'entreprise souhaiterait connaitre s'il y a des clients pilotes d'un réseau partenaire ayant autant de commandes ques les clients partenaires.</p>
+        <h3>Résultat :</h3>
+        <pre>
+<img src="Images/SAE5.png"
+alt="
+Le résultat met en relation deux clients situés à Toulouse (31000) : la société Le Nostradamu (code NOSGK, contact : Gus Kerba, au 5 Rue de l'arch, tél : 04 67 88 12 45, mail : lenostrad@orange.fr) et la société Petite Épicerie (code ISAEP, contact : Isabelle Tricote, au 38 Rue de la R, tél : 06.61.77.61.1, mail : contact@yahoo.fr).">
+        </pre>
     </section>
     </main>
 </body>
