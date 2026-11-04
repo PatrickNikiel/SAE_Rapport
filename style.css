@@ -4,6 +4,7 @@
     --header: #3B6064;
     --text: #fff;
     --bg: #364958;
+	--code: #153243;
 }
 
 html {
@@ -30,10 +31,35 @@ header {
     top: 0;
     width: 100%;
     box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 }
 
 section {
     padding: 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+section > h3, section > p, section > h2 {
+	width: 100%;
+}
+
+code {
+	padding: 8px;
+	white-space: pre-line;
+	background-color: var(--code);
+	display: block;
+	width: fit-content;
+}
+
+img {
+	white-space: pre-line;
+	width: fit-content;
 }
 
 pre {
