@@ -20,14 +20,79 @@
         Nos experts ont préparé des requêtes pour vous aider sur plusieurs axes :
     </p>
     <section>
-		<h2>Écologie - Eric</h2>
-        <p>L'entreprise souhaiterait connaître le pourcentage de produits BIO vendu ce dernier moi.</p>
-        <code>SELECT * FROM Produit WHERE data < 1mois; (A FAIRE)</code>
+		<h2>Guerre mondiale - Eric</h2>
+        <p>
+		En liens avec la seconde guerre mondial, KDou souhaiterait connaitre les fournisseurs qui viens d’Allemagne et de France.
+		</p>
+        <code>
+			SELECT Fournisseur.Societe
+			FROM Pays INNER JOIN Fournisseur ON Pays.NoPays = Fournisseur.NoPays
+			WHERE (((Pays.NoPays) = 1)) OR (((Pays.NoPays) = 9));
+		</code>
     </section>
 	<section>
-		<h2></h2>
-        <p>L'entreprise souhaiterait connaître le pourcentage de produits BIO vendu ce dernier moi.</p>
-        <code>SELECT * FROM Produit WHERE data < 1mois; (A FAIRE)</code>
+		<h2>Partenariat - Patrick</h2>
+        <p>L'entreprise souhaiterait connaître les 5 entreprise qui ont contribuées le plus au chiffre d'affaire</p>
+        <code>
+			SELECT TOP 5 C.CodeCli, C.Societe, SUM(DC.Quantite * Produit.CoutAchat * CA.CoefMarge * (1 - DC.Remise / 100)) AS ChiffreAffaires
+			FROM (
+				(
+					(
+						Clientele C
+						INNER JOIN Commande ON C.CodeCli = Commande.CodeCli
+					) INNER JOIN DetailCommande DC ON Commande.NoCommande = DC.NoCommande
+				) INNER JOIN Produit P ON DC.RefProd = P.RefProd
+			) INNER JOIN Categorie CA ON P.CodeCateg = CA.CodeCateg
+			GROUP BY C.CodeCli, C.Societe
+			ORDER BY SUM(DC.Quantite * P.CoutAchat * CA.CoefMarge * (1 - DC.Remise / 100)) DESC;
+		</code>
     </section>
+
+	<section>
+		<h2>Meilleurs vendus - Sascha</h2>
+		<p>
+		Pour ma requête je me suis demandé comment réduire l'émissions des livraisons  
+		Tout en gardent un certain rendement. C'est alors que je me suis dit qu'on pourrait voir quels produis sont les mieux vendus par catégorie pour en acheter des quantités plus importantes pour d'une part évité de recommander des produis et donc de consommé d'avantage et d'une autre par économisé de l'argent car on pourra négocier des prix plus avantageux avec les nouvelles quantités demandées. 
+		Elle se décompose en 2 requête, la 1ere affiche le nombre de vente d'un produis avec
+		</p>
+		<code>
+			SELECT
+				C.CodeCateg,
+				C.NomCateg,
+				P.RefProd,
+				P.NomProd,
+				SUM(D.Quantité) AS TotalVendu
+			FROM
+				(
+					DetailCommande AS D
+					INNER JOIN Produit AS P ON D.[Réf produit] = P.RefProd
+				)
+				INNER JOIN Categorie AS C ON C.CodeCateg = P.CodeCateg
+			GROUP BY
+				C.CodeCateg,
+				C.NomCateg,
+				P.RefProd,
+				P.NomProd;
+
+			SELECT
+				Q1.NomCateg,
+				Q1.NomProd,
+				Q1.TotalVendu
+			FROM
+				Q_TotalVentes AS Q1
+			WHERE
+				(
+					(
+						(Q1.TotalVendu) = (
+							SELECT
+								MAX(Q2.TotalVendu)
+							FROM
+								Q_TotalVentes AS Q2
+							WHERE
+								Q2.CodeCateg = Q1.CodeCateg
+						)
+					)
+				);
+		</code>
 </body>
 </html>

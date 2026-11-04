@@ -122,11 +122,11 @@
     <section>
         <h2 id="g">Question g)</h2>
         <h3>Contexte :</h3>
-        <p>L'entreprise souhaiterait connaitre les 3 dernières commandes du client Max Deschamps.</p>
-			<code>SELECT TOP 25 PERCENT Commande.[N° commande]
-				FROM Clientele INNER JOIN Commande ON Clientele.CodeCli = Commande.CodeCli
-				WHERE (((Clientele.Contact) = "Max Deschamps"))
-				ORDER BY Commande.[N° commande] DESC;
+        <p>Un client souhaite savoir si ses commandes ont bien été passés.</p>
+			<code>
+				SELECT TOP 3 * FROM Commande
+				INNER JOIN Clientele ON Commande.CodeCli = Clientele.CodeCli
+				WHERE Contact = "Max Deschamps"
 			</code>
         <h3>Résultat :</h3>
 		<img src="Images/SAE1g.png"
@@ -137,9 +137,18 @@
         <h2 id="h">Question h)</h2>
         <h3>Contexte :</h3>
         <p>L'entreprise souhaiterait connaitre les fournisseurs ne proposent que des desserts.</p>
-			<code>SELECT DISTINCT Fournisseur.Societe
-				FROM Fournisseur INNER JOIN Produit ON Fournisseur.NoFour = Produit.NoFour
-				WHERE (((Produit.CodeCateg) = 3));
+			<code>	
+				SELECT F.Societe, F.NoFour FROM Fournisseur F
+				WHERE EXISTS (
+					SELECT * FROM Produit
+					INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
+					WHERE NomCateg = "Desserts" AND Produit.NoFour = F.NoFour
+				)
+				AND NOT EXISTS (
+					SELECT * FROM Produit
+					INNER JOIN Categorie ON Produit.CodeCateg = Categorie.CodeCateg
+					WHERE NomCateg <> "Desserts" AND Produit.NoFour = F.NoFour
+				)
 			</code>
         <h3>Résultat :</h3>
 		<img src="Images/SAE1h.png"
@@ -152,9 +161,13 @@
         <h2 id="i">Question i)</h2>
         <h3>Contexte :</h3>
         <p>L'entreprise souhaiterait connaitre quels fournisseurs hors France n’ont pas encore de produits au catalogue de Kdou.</p>
-			<code>SELECT Fournisseur.Societe, Pays.PaysFR, Pays.PaysEN
-				FROM Pays INNER JOIN (Fournisseur LEFT JOIN Produit ON Fournisseur.NoFour = Produit.NoFour) ON Pays.NoPays = Fournisseur.NoPays
-				WHERE (((Produit.NoFour) IS NULL) AND (NOT (Pays.PaysFR) = "France") AND (NOT (Pays.PaysEN) = "France"));
+			<code>	SELECT * FROM Fournisseur F
+				INNER JOIN Pays P ON F.NoPays = P.NoPays
+				WHERE P.PaysFR <> "France" AND NOT EXISTS
+				(
+				SELECT * FROM Produit Prod
+				WHERE Prod.NoFour = F.NoFour
+				)
 			</code>
         <h3>Résultat :</h3>
 		<img src="Images/SAE1i.png"
@@ -165,9 +178,10 @@
         <h2 id="j">Question j)</h2>
         <h3>Contexte :</h3>
         <p>L'entreprise souhaiterait connaitre quels sont les couples de clients qui sont situés à Paris pour des raisons d'optimisation des livraisons.</p>
-			<code>SELECT Clientele.Societe, Clientele_1.Societe, Clientele.Ville, Clientele_1.Ville FROM Clientele
-				INNER JOIN Clientele AS Clientele_1 ON Clientele.CodeCliPart = Clientele_1.CodeCli
-				WHERE (((Clientele.Ville) = "Paris") AND ((Clientele_1.Ville) = "Paris"));
+			<code> SELECT * FROM Clientele A
+INNER JOIN Clientele B
+ON A.CodeCli = B.CodeCliPart
+WHERE A.Ville = "Paris" AND B.Ville = "Paris"
 			</code>
         <h3>Résultat :</h3>
 		<img src="Images/SAE1j.png"
