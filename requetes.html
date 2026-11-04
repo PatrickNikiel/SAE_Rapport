@@ -44,7 +44,7 @@
 				) INNER JOIN Produit P ON DC.RefProd = P.RefProd
 			) INNER JOIN Categorie CA ON P.CodeCateg = CA.CodeCateg
 			GROUP BY C.CodeCli, C.Societe
-			ORDER BY SUM(DC.Quantite * P.CoutAchat * CA.CoefMarge * (1 - DC.Remise / 100)) DESC;
+			ORDER BY ChiffreAffaires DESC;
 		</code>
     </section>
 
